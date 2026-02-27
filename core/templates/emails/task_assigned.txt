@@ -1,0 +1,7 @@
+Nueva tarea asignada
+
+Tarea: {{ task.title }}
+Board: {{ board.name }}
+Columna: {{ tasklist.title }}
+
+Entra en la app para verla.

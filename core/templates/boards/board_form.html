@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% block title %}{% if object %}Editar Board{% else %}Crear Board{% endif %}{% endblock %}
+
+{% block content %}
+<div class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow">
+    <h2 class="text-xl font-semibold mb-4">
+        {% if object %}Editar Board{% else %}Crear Board{% endif %}
+    </h2>
+
+    <form method="post" class="space-y-4">
+        {% csrf_token %}
+        {{ form|crispy }}
+
+        <div class="flex justify-end gap-2">
+            <a href="{% url 'board_list' %}"
+               class="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300">
+                Cancelar
+            </a>
+
+            <button type="submit"
+                    class="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700">
+                Guardar
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

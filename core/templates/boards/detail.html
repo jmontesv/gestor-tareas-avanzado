@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}{{ board.name }}{% endblock %}
+
+{% block content %}
+
+{% include 'includes/task_modal.html' %}
+{% include 'includes/confirm_modal.html' %}
+
+<div class="flex items-start justify-between mb-8">
+
+    <div>
+        <h1 class="text-3xl font-semibold text-gray-900">
+            {{ board.name }}
+        </h1>
+        <p class="text-sm text-gray-500 mt-1">
+            {{ board.tasklists.count }} columnas ·
+            {{ board.tasklists.all|length }} secciones
+        </p>
+    </div>
+
+    {% if request.user == board.created_by %}
+    <div class="flex gap-3">
+        <a href="{% url 'board_export_csv' board.id %}"
+            class="px-4 py-2 text-sm bg-green-600 text-white rounded hover:bg-green-700 transition">
+            Exportar CSV
+        </a>
+        <a href="{% url 'board_update' board.pk %}"
+           class="px-4 py-2 text-sm font-medium
+                  bg-gray-100 hover:bg-gray-200
+                  rounded-lg transition">
+            Editar
+        </a>
+
+        <a href="{% url 'board_delete' board.pk %}"
+           class="px-4 py-2 text-sm font-medium
+                  bg-red-600 text-white
+                  hover:bg-red-700
+                  rounded-lg transition shadow-sm">
+            Eliminar
+        </a>
+    </div>
+    {% endif %}
+
+</div>
+
+<div class="flex gap-6 overflow-x-auto pb-8">
+
+    <div id="tasklistsContainer"
+         class="flex gap-6 min-h-[200px]">
+
+        {% for tasklist in board.tasklists.all %}
+        <div data-tasklist-id="{{ tasklist.id }}"
+             class="tasklist flex-shrink-0 w-72
+                    bg-white border border-gray-200
+                    rounded-2xl p-4 shadow-sm">
+
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="font-semibold text-gray-800">
+                    {{ tasklist.title }}
+                </h3>
+            </div>
+
+            <div class="tasklist-body space-y-3 min-h-[40px]">
+
+                {% for task in tasklist.tasks.all %}
+                <div data-task-id="{{ task.id }}"
+                     draggable="true"
+                     class="task bg-gray-50 hover:bg-gray-100
+                            border border-gray-200
+                            rounded-xl p-3
+                            transition duration-200 cursor-pointer">
+
+                    <h4 class="font-medium text-gray-800">
+                        {{ task.title }}
+                    </h4>
+
+                    {% if task.assigned_to %}
+                    <p class="text-xs text-gray-500 mt-1">
+                        {{ task.assigned_to.username }}
+                    </p>
+                    {% endif %}
+
+                    {% if task.labels.all %}
+                    <div class="flex flex-wrap mt-2 gap-1">
+                        {% for label in task.labels.all %}
+                        <span class="text-xs px-2 py-0.5 rounded-full text-white"
+                              style="background-color: {{ label.color }};">
+                            {{ label.name }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                </div>
+                {% empty %}
+                <p class="text-sm text-gray-400">
+                    Sin tareas
+                </p>
+                {% endfor %}
+
+            </div>
+
+            <button class="open-task-modal
+                w-full mt-4 flex items-center justify-center gap-2
+                px-3 py-2
+                text-sm font-medium
+                bg-blue-50 text-blue-600
+                hover:bg-blue-100
+                rounded-lg transition"
+                data-tasklist-id="{{ tasklist.id }}"
+                data-url="/tasklist/{{ tasklist.id }}/task/create/">
+                
+                <i class="fa-solid fa-plus text-xs"></i>
+                Nueva tarea
+            </button>
+
+        </div>
+        {% endfor %}
+
+        <a href="{% url 'tasklist_create' board.id %}"
+           class="flex-shrink-0 w-72
+                  border-2 border-dashed border-gray-300
+                  rounded-2xl
+                  flex items-center justify-center
+                  text-gray-500 hover:text-blue-600
+                  hover:border-blue-400
+                  transition cursor-pointer">
+
+            <div class="flex flex-col items-center py-10">
+                <i class="fa-solid fa-plus mb-2"></i>
+                <span class="text-sm font-medium">
+                    Añadir columna
+                </span>
+            </div>
+
+        </a>
+
+    </div>
+
+</div>
+
+{% block extra_js %}
+<script type="module" src="{% static 'js/board.js' %}"></script>
+{% endblock %}
+
+{% endblock %}

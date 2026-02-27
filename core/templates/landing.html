@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block title %}Organiza tu trabajo{% endblock %}
+
+{% block content %}
+<section class="flex flex-col items-center justify-center text-center py-24 px-6">
+
+    <h1 class="text-4xl md:text-6xl font-bold text-gray-900 leading-tight max-w-3xl">
+        Organiza tus proyectos con claridad.
+        <span class="text-blue-600">Sin distracciones.</span>
+    </h1>
+
+    <p class="mt-6 text-lg text-gray-600 max-w-2xl">
+        Gestiona tareas, crea tableros y visualiza el progreso de tu equipo
+        con una experiencia limpia y rápida.
+    </p>
+
+    <div class="mt-10 flex gap-4 flex-wrap justify-center">
+
+        <a href="{% url 'login' %}"
+           class="px-6 py-3 rounded-xl bg-blue-600 text-white font-medium
+                  hover:bg-blue-700 transition shadow-md hover:shadow-lg">
+            Iniciar sesión
+        </a>
+
+        <a href="{% url 'register' %}"
+           class="px-6 py-3 rounded-xl border border-gray-300 font-medium
+                  hover:bg-gray-100 transition">
+            Crear cuenta
+        </a>
+
+    </div>
+
+</section>
+
+<section class="py-20 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-10 text-center">
+
+        <div class="p-6 bg-white rounded-2xl shadow-sm hover:shadow-md transition">
+            <div class="text-blue-600 text-3xl mb-4">
+                <i class="fa-solid fa-layer-group"></i>
+            </div>
+            <h3 class="font-semibold text-lg mb-2">Tableros organizados</h3>
+            <p class="text-gray-500 text-sm">
+                Divide tu trabajo en columnas y mantén todo bajo control.
+            </p>
+        </div>
+
+        <div class="p-6 bg-white rounded-2xl shadow-sm hover:shadow-md transition">
+            <div class="text-blue-600 text-3xl mb-4">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h3 class="font-semibold text-lg mb-2">Seguimiento de progreso</h3>
+            <p class="text-gray-500 text-sm">
+                Visualiza el porcentaje completado de cada proyecto.
+            </p>
+        </div>
+
+        <div class="p-6 bg-white rounded-2xl shadow-sm hover:shadow-md transition">
+            <div class="text-blue-600 text-3xl mb-4">
+                <i class="fa-solid fa-bolt"></i>
+            </div>
+            <h3 class="font-semibold text-lg mb-2">Rápido y minimalista</h3>
+            <p class="text-gray-500 text-sm">
+                Interfaz limpia pensada para concentrarte en lo importante.
+            </p>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

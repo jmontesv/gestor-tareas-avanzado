@@ -1,0 +1,47 @@
+<header class="bg-white border-b border-gray-200 sticky top-0 z-800">
+    <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+
+        <div class="flex items-center gap-3">
+            <a href="{% url 'home' %}" 
+               class="text-xl font-semibold text-gray-800 tracking-tight hover:text-blue-600 transition">
+                Gestor de tareas
+            </a>
+        </div>
+
+        {% if request.user.is_authenticated %}
+        <div class="flex items-center gap-6">
+            <div class="flex items-center gap-3 border-l pl-6">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-semibold">
+                        {{ request.user.username|first|upper }}
+                    </div>
+                    <span class="text-sm text-gray-700 hidden sm:block">
+                        {{ request.user.username }}
+                    </span>
+                </div>
+
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button type="submit"
+                        class="text-sm text-gray-600 hover:text-red-600 transition">
+                        Salir
+                    </button>
+                </form>
+            </div>
+
+        </div>
+        {% else %}
+        <div class="flex items-center gap-4">
+            <a href="{% url 'login' %}"
+               class="text-sm text-gray-600 hover:text-blue-600 transition">
+                Iniciar sesión
+            </a>
+
+            <a href="{% url 'register' %}"
+               class="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition">
+                Crear cuenta
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</header>
