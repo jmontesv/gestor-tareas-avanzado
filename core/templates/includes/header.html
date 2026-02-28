@@ -1,10 +1,11 @@
+{% load static %}
+
 <header class="bg-white border-b border-gray-200 sticky top-0 z-800">
     <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
 
         <div class="flex items-center gap-3">
-            <a href="{% url 'home' %}" 
-               class="text-xl font-semibold text-gray-800 tracking-tight hover:text-blue-600 transition">
-                Gestor de tareas
+            <a href="{% url 'home' %}">
+                <img src="{% static 'img/logo_gestor_icono.svg' %}" alt="Logo" class="h-14">
             </a>
         </div>
 
