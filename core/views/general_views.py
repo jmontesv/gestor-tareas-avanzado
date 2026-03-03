@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from core.models import Board, Task
 from django.db.models import Q
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from core.forms import CustomUserCreationForm
 
 # Vista para la página de inicio (landing page)
 def home(request):
@@ -58,12 +58,12 @@ def register_view(request):
         return redirect("home")
 
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user) 
             return redirect("home")
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
 
     return render(request, "auth/register.html", {"form": form})
