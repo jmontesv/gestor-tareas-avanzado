@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf.urls.static import static
+from django.conf import settings
 from django.contrib.auth import views as auth_views
 from core.views import (
     home,
@@ -32,7 +34,8 @@ from core.views import (
     TaskDeleteView,
     TaskListCreateView,
     move_task,
-    reorder_tasklists
+    reorder_tasklists,
+    ProfileUpdateView
 )  
 
 urlpatterns = [
@@ -44,6 +47,7 @@ urlpatterns = [
     path("login/", auth_views.LoginView.as_view(template_name="auth/login.html"), name="login"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("register/", register_view, name="register"),
+    path('profile/', ProfileUpdateView.as_view(), name='profile'),
 
     path("boards/", BoardListView.as_view(), name="board_list"),
     path("boards/create/", BoardCreateView.as_view(), name="board_create"),
@@ -59,4 +63,4 @@ urlpatterns = [
     path("tasks/<int:task_id>/move/", move_task, name="move_task"),
     path("tasks/<int:pk>/update/", TaskUpdateView.as_view(), name="task_update"),
     path("tasks/<int:pk>/delete/", TaskDeleteView.as_view(), name="task_delete"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

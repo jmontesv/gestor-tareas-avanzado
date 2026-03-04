@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Board, TaskList, Task, Label
+from .models import Board, TaskList, Task, Label, Profile
 
 # Register your models here.
 @admin.register(Label)
@@ -32,3 +32,10 @@ class BoardAdmin(admin.ModelAdmin):
     list_filter = ("created_at",)
     filter_horizontal = ("members",)
     ordering = ("-created_at",)
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ['user', 'nombre_completo', 'fecha_nacimiento']
+    search_fields = ['user__username', 'nombre_completo']
+    readonly_fields = ['user']

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from core.models import Board, Task
+from core.models import Board, Task, Profile
 from django.db.models import Q
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
@@ -61,6 +61,7 @@ def register_view(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            Profile.objects.create(user=user)
             login(request, user) 
             return redirect("home")
     else:

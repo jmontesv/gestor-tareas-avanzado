@@ -1,7 +1,4 @@
 from django.db import models
-
-# Create your models here.
-from django.db import models
 from django.contrib.auth.models import User
 
 class Board(models.Model):
@@ -66,5 +63,14 @@ class Task(models.Model):
     def __str__(self):
         return self.title
     
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
+    nombre_completo = models.CharField(max_length=150, blank=True)
+    bio = models.TextField(max_length=300, blank=True)
+    fecha_nacimiento = models.DateField(blank=True, null=True)
 
+    def __str__(self):
+        return f"Perfil de {self.user.username}"
 
+    

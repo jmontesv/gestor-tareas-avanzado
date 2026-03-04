@@ -161,6 +161,10 @@ LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "login"
 
+# Configuración para archivos multimedia (imágenes de perfil, etc.)
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 # Email configuration
 EMAIL_BACKEND = 'core.email_backend.ResendEmailBackend'
 RESEND_API_KEY = os.environ.get("RESEND_API_KEY")

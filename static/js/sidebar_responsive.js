@@ -18,7 +18,10 @@ function hideSidebarMobile() {
 function expandDesktop() {
     sidebar.classList.remove("w-20");
     sidebar.classList.add("w-64");
-    menuTextElements.forEach(el => el.classList.remove("hidden"));
+    // Pequeño retraso para evitar que el texto aparezca antes de que el sidebar se expanda
+    setTimeout(() => {
+        menuTextElements.forEach(el => el.classList.remove("hidden"));
+    }, 200);
 }
 
 function collapseDesktop() {
