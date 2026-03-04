@@ -13,9 +13,13 @@
         <div class="flex items-center gap-6">
             <div class="flex items-center gap-3 border-l pl-6">
                 <div class="flex items-center gap-2">
+                    {% if request.user.profile.avatar %}
+                    <img src="{{ request.user.profile.avatar.url }}" alt="Avatar" class="w-8 h-8 rounded-full object-cover border border-gray-200">
+                    {% else %}
                     <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-semibold">
                         {{ request.user.username|first|upper }}
                     </div>
+                    {% endif %}
                     <span class="text-sm text-gray-700 hidden sm:block">
                         {{ request.user.username }}
                     </span>
